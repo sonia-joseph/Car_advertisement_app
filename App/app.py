@@ -10,12 +10,12 @@ import streamlit as st
 
 #load data
 vdf_clean = pd.read_csv('vdf_clean.csv')
-
-#set page layout to wide
-st.set_page_config(layout="wide")
+col1, col2, col3 = st.columns([1, 3, 1])
 #open and set title image
 image = Image.open(r'C:\Users\Sandeep\Github\Car_advertisement_app\App\logo.png')
-st.image(image, width=1000)
+with col2:
+    # Display the image in the center column
+    st.image(image, width=1000)
 
 #title and description
 st.title('Used Car Data App')
@@ -23,7 +23,7 @@ st.markdown("""
 This app looks at the change in used car model availability and price changes over time
 """)
 #expandable about bar
-expander_bar = st.expander("About")
+expander_bar = st.expander("**About**")
 expander_bar.markdown("""
 ***Python Libraries:*** pandas, numpy, base64, scipy, PIL, plotly, streamlit
 
