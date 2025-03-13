@@ -51,7 +51,7 @@ yearly_type.drop(columns=['model','condition','cylinders','fuel','odometer','tra
 
 #slider for the years
 yr_select = st.slider('Select a Time Range', 1920,2019,(1990,2019))
-start,end = year_select
+start,end = yr_select
 yearly_type_x = yearly_type[(yearly_type['model_year'] >=start) & (yearly_type['model_year'] <= end)]
 detailed_types_bar = px.bar(yearly_type_x,
                             x ='model_year', 
@@ -95,5 +95,4 @@ Price_scatter = px.scatter(df_selected_brands,
                             labels = dict(model_year = 'Year', price = 'Price', manufacturer = 'Manufacturer'),
                             color_discrete_sequence= px.colors.qualitative.Light24,
                             height=600,
-                            width=800
-                            )
+                            width=800)
