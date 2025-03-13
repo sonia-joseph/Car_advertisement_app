@@ -169,3 +169,32 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore backup and temporary files
+*.pyc
+*.pyo
+*~
+__pycache__/
+
+# Ignore IDE specific files and folders
+.idea/
+.vscode/
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# Ignore virtual environment folders
+venv/
+.venv/
+env/
+
+# Ignore compiled outputs
+*.pyc
+.DS_Store
+
+# Ignore the .streamlit directory, if it causes issues
+/.streamlit/*.ps1
+
+# Ignore other system files, if necessary
+/.DS_Store
+/.vscode/
