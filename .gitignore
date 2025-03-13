@@ -198,3 +198,4 @@ env/
 # Ignore other system files, if necessary
 /.DS_Store
 /.vscode/
+myenv/
