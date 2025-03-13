@@ -12,7 +12,7 @@ import streamlit as st
 vdf_clean = pd.read_csv('vdf_clean.csv')
 col1, col2, col3 = st.columns([1, 3, 1])
 #open and set title image
-image = st.image("https://example.com/path/to/logo.png")
+image = st.image("https://github.com/sonia-joseph/Car_advertisement_app/blob/main/App/logo.png?raw=true")
 with col2:
     # Display the image in the center column
     st.image(image, width=1000)
