@@ -1,9 +1,6 @@
 #import relevant libraries
 import pandas as pd
-import numpy as np
-from scipy import stats as st
 import base64
-from PIL import Image
 import plotly as py
 import plotly.express as px
 import streamlit as st
@@ -24,7 +21,7 @@ This app looks at the change in used car model availability and price changes ov
 #expandable about bar
 expander_bar = st.expander("**About**")
 expander_bar.markdown("""
-***Python Libraries:*** pandas, numpy, base64, scipy, PIL, plotly, streamlit
+***Python Libraries:*** pandas, base64, plotly, streamlit
 
 ***Credit*** [Data Professor Chanin Nantasenamat (aka Data Professor)](https://www.youtube.com/watch?v=JwSS70SZdyM)"
 """)
