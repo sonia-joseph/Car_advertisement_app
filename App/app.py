@@ -27,7 +27,7 @@ expander_bar.markdown("""
 """)
 
 # create a text header above the dataframe
-st.header('Data viewer') 
+st.header('Data Viewer') 
 # display the dataframe with streamlit
 st.dataframe(vdf_clean)
 
@@ -42,14 +42,14 @@ def filedownload(df):
 st.markdown(filedownload(vdf_clean), unsafe_allow_html=True)
 
 #New section title
-st.header('Distribution and number of Models Introduced over Time')
+st.header('Distribution and number of models introduced over time')
 #group the vehicle database by year and types to see the distribution of the types by year
 yearly_type = vdf_clean.groupby(['model_year','type']).count().reset_index()
 yearly_type.rename(columns={'price': 'number_of_vehicles'}, inplace=True)
 yearly_type.drop(columns=['model','condition','cylinders','fuel','odometer','transmission','paint_color','is_4wd','date_posted','days_listed'], inplace=True)
 
 #slider for the years
-yr_select = st.slider('Select a Time Range', 1920,2019,(1990,2019))
+yr_select = st.slider('Select a time range', 1920,2019,(1990,2019))
 start,end = yr_select
 yearly_type_x = yearly_type[(yearly_type['model_year'] >=start) & (yearly_type['model_year'] <= end)]
 
@@ -59,7 +59,7 @@ if st.checkbox('Show more details'):
                             x ='model_year', 
                             y = 'number_of_vehicles', 
                             color = 'type', 
-                            title='Vehicles Yearly Distribution classified by Type', 
+                            title='Vehicles yearly distribution classified by type', 
                             text = 'number_of_vehicles',
                             labels = dict(model_year = 'Year', number_of_vehicles = 'Number of vehicles of the type'),
                             height=600,
@@ -71,7 +71,7 @@ else:
                             x ='model_year', 
                             y = 'number_of_vehicles', 
                             color = 'type', 
-                            title='Vehicles Yearly Distribution Classified by Type',
+                            title='Vehicles yearly distribution classified by type',
                             labels = dict(model_year = 'Year', number_of_vehicles = 'Number of vehicles of the type'),
                             height=600,
                             width=1000
@@ -80,11 +80,11 @@ else:
 #show a scatter for price change for a manufacturer over time
 
 #new section
-st.header('Price Change over Time')
+st.header('Price change over time')
 #select manufacturer
 sorted_brand = sorted( vdf_clean['manufacturer'].unique())
 selected_brands = st.multiselect('Manufacturer', sorted_brand, sorted_brand)
-yr_select2 = st.slider('Select a Time Range', 1920,2019,(2000,2019))
+yr_select2 = st.slider('Select a time range', 1920,2019,(2000,2019))
 start2,end2 = yr_select2
 #filter on selection
 df_x = vdf_clean[(vdf_clean['model_year'] >=start2) & (vdf_clean['model_year'] <= end2)]
@@ -94,7 +94,7 @@ df_selected_brands = df_x[ (df_x['manufacturer'].isin(selected_brands)) ]
 Price_scatter = px.scatter(df_selected_brands, 
                             x='model_year', 
                             y='price',
-                            title='Price vs Year, by type', 
+                            title='Price vs year, by type', 
                             color = 'manufacturer',
                             hover_name = 'model',
                             hover_data=['model', 'condition', 'odometer'],
