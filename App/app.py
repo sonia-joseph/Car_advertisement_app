@@ -91,7 +91,7 @@ Price_scatter = px.scatter(df_selected_brands,
                             title='Price vs Year, by type', 
                             color = 'manufacturer',
                             hover_name = 'model',
-                            hover_data=['model', 'condition', 'odometer']
+                            hover_data=['model', 'condition', 'odometer'],
                             labels = dict(model_year = 'Year', price = 'Price', manufacturer = 'Manufacturer'),
                             color_discrete_sequence= px.colors.qualitative.Light24,
                             height=600,
