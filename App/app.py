@@ -14,18 +14,19 @@ vdf_clean = pd.read_csv('vdf_clean.csv')
 #set page layout to wide
 st.set_page_config(layout="wide")
 #open and set title image
-image = Image.open('logo.png')
-st.image(image, width=500)
+image = Image.open(r'C:\Users\Sandeep\Github\Car_advertisement_app\App\logo.png')
+st.image(image, width=1000)
 
 #title and description
 st.title('Used Car Data App')
-st.markdown("""""
-This app looks at the change in used car model availability and price changes over time"
+st.markdown("""
+This app looks at the change in used car model availability and price changes over time
 """)
 #expandable about bar
 expander_bar = st.expander("About")
-expander_bar.markdown(""""
-***Python Libraries:*** pandas, numpy, base64, scipy, PIL, plotly, streamlit"
+expander_bar.markdown("""
+***Python Libraries:*** pandas, numpy, base64, scipy, PIL, plotly, streamlit
+
 ***Credit*** [Data Professor Chanin Nantasenamat (aka Data Professor)](https://www.youtube.com/watch?v=JwSS70SZdyM)"
 """)
 
@@ -44,6 +45,8 @@ def filedownload(df):
 
 st.markdown(filedownload(vdf_clean), unsafe_allow_html=True)
 
+#New section title
+st.header('Distribution and number of Models Introduced over Time')
 #group the vehicle database by year and types to see the distribution of the types by year
 yearly_type = vdf_clean.groupby(['model_year','type']).count().reset_index()
 yearly_type.rename(columns={'price': 'number_of_vehicles'}, inplace=True)
@@ -53,37 +56,44 @@ yearly_type.drop(columns=['model','condition','cylinders','fuel','odometer','tra
 yr_select = st.slider('Select a Time Range', 1920,2019,(1990,2019))
 start,end = yr_select
 yearly_type_x = yearly_type[(yearly_type['model_year'] >=start) & (yearly_type['model_year'] <= end)]
-detailed_types_bar = px.bar(yearly_type_x,
-                            x ='model_year', 
-                            y = 'number_of_vehicles', 
-                            color = 'type', 
-                            title='Vehicles Yearly Distribution Classified by Type 1990-2019',
-                            labels = dict(model_year = 'Year', number_of_vehicles = 'Number of vehicles of the type'),
-                            height=600,
-                            width=1000
-                            )
-st.write(detailed_types_bar)
 
 #if checkbox is selected numerical data for the various car types is displayed
 if st.checkbox('Show more details'):
-    st.write('Here are some additional details.')
-    detailed_types_bar = px.bar(yearly_type_x,
+    detailed_types_bar2 = px.bar(yearly_type_x,
                             x ='model_year', 
                             y = 'number_of_vehicles', 
                             color = 'type', 
-                            title='Vehicles Yearly Distribution Classified by Type 1990-2019', 
+                            title='Vehicles Yearly Distribution classified by Type', 
                             text = 'number_of_vehicles',
                             labels = dict(model_year = 'Year', number_of_vehicles = 'Number of vehicles of the type'),
                             height=600,
                             width=1000
                             )
-
+    st.write(detailed_types_bar2)
+else:
+    detailed_types_bar = px.bar(yearly_type_x,
+                            x ='model_year', 
+                            y = 'number_of_vehicles', 
+                            color = 'type', 
+                            title='Vehicles Yearly Distribution Classified by Type',
+                            labels = dict(model_year = 'Year', number_of_vehicles = 'Number of vehicles of the type'),
+                            height=600,
+                            width=1000
+                            )
+    st.write(detailed_types_bar)
 #show a scatter for price change for a manufacturer over time
+
+#new section
+st.header('Price Change over Time')
 #select manufacturer
-sorted_brand = sorted( vdf_clean['manufacturer'] )
+sorted_brand = sorted( vdf_clean['manufacturer'].unique())
 selected_brands = st.multiselect('Manufacturer', sorted_brand, sorted_brand)
+yr_select2 = st.slider('Select a Time Range', 1920,2019,(2000,2019))
+start2,end2 = yr_select2
 #filter on selection
-df_selected_brands = vdf_clean[ (vdf_clean['manufacturer'].isin(selected_brands)) ]
+df_x = vdf_clean[(vdf_clean['model_year'] >=start2) & (vdf_clean['model_year'] <= end2)]
+df_selected_brands = df_x[ (df_x['manufacturer'].isin(selected_brands)) ]
+
 #scatter plot on filtered data
 Price_scatter = px.scatter(df_selected_brands, 
                             x='model_year', 
@@ -96,3 +106,4 @@ Price_scatter = px.scatter(df_selected_brands,
                             color_discrete_sequence= px.colors.qualitative.Light24,
                             height=600,
                             width=800)
+st.write(Price_scatter)
